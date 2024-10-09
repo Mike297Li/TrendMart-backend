@@ -26,5 +26,14 @@ public interface UserMapper {
     @Delete("DELETE FROM users WHERE user_id = #{userId}")
     void deleteUser(Integer userId);
 
+    @Insert("INSERT INTO users (name, email, password, role,address, created_at) VALUES (#{name}, #{email}, #{password}, #{role},#{address}, NOW())")
+    @Options(useGeneratedKeys = true, keyProperty = "userId")
+    void registerUser(User user);
 
+    @Select("SELECT * FROM users WHERE email = #{email}")
+    @Results({
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "createdAt", column = "created_at")
+    })
+    User findUserByEmail(String email);
 }

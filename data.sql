@@ -58,8 +58,6 @@ CREATE TABLE `reviews` (
   `created_at` timestamp
 );
 
-ALTER TABLE `user_preferences` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
-
 ALTER TABLE `payment_information` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 ALTER TABLE `reviews` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
