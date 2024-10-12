@@ -52,4 +52,21 @@ public class UserService {
         }
         return null;
     }
+
+    public boolean checkIfUserExistsByEmail(String email) {
+        // Logic to check if a user with this email exists in the database.
+        return userMapper.existsByEmail(email); // Assuming you have such a method.
+    }
+
+    public void updatePassword(String email, String newPassword) {
+        User user = userMapper.findByEmail(email);
+        if (user != null) {
+            // Encrypt the password before saving
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userMapper.updatePassword(user.getEmail(),user.getPassword());
+        } else {
+            throw new RuntimeException("User not found");
+        }
+    }
+
 }

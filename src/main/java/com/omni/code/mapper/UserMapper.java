@@ -36,4 +36,16 @@ public interface UserMapper {
             @Result(property = "createdAt", column = "created_at")
     })
     User findUserByEmail(String email);
+
+    // Check if user exists by email
+    @Select("SELECT COUNT(*) FROM users WHERE email = #{email}")
+    boolean existsByEmail(String email);
+
+    // Get user by email
+    @Select("SELECT * FROM users WHERE email = #{email}")
+    User findByEmail(String email);
+
+    // Update user password
+    @Update("UPDATE users SET password = #{password} WHERE email = #{email}")
+    void updatePassword(@Param("email") String email, @Param("password") String password);
 }
