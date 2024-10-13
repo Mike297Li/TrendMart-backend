@@ -3,6 +3,7 @@ package com.omni.code.service;
 import com.omni.code.entity.User;
 import com.omni.code.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,4 +33,40 @@ public class UserService {
     public void deleteUser(Integer userId) {
         userMapper.deleteUser(userId);
     }
+
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public void registerUser(User user) {
+        // Encrypt the password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("USER");  // Set a default role
+        userMapper.registerUser(user);
+    }
+
+    public User loginUser(String email, String password) {
+        User user = userMapper.findUserByEmail(email);
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return user;
+        }
+        return null;
+    }
+
+    public boolean checkIfUserExistsByEmail(String email) {
+        // Logic to check if a user with this email exists in the database.
+        return userMapper.existsByEmail(email); // Assuming you have such a method.
+    }
+
+    public void updatePassword(String email, String newPassword) {
+        User user = userMapper.findByEmail(email);
+        if (user != null) {
+            // Encrypt the password before saving
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userMapper.updatePassword(user.getEmail(),user.getPassword());
+        } else {
+            throw new RuntimeException("User not found");
+        }
+    }
+
 }

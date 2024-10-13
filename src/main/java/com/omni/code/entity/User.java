@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data                   // Lombok will generate getter and setter methods automatically
 @NoArgsConstructor       // Generates a no-args constructor
@@ -17,6 +17,6 @@ public class User {
     private String password;
     private String address;
     private String role;
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
 }
