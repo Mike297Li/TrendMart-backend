@@ -73,3 +73,9 @@ ALTER TABLE `order_item` ADD FOREIGN KEY (`product_id`) REFERENCES `product` (`p
 ALTER TABLE `payment` ADD FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`);
 
 ALTER TABLE `inventory` ADD FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
+
+ALTER TABLE `product` ADD COLUMN `picture_base64` LONGTEXT;
+
+ALTER TABLE product MODIFY COLUMN product_id integer AUTO_INCREMENT;
+
+
