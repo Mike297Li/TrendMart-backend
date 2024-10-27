@@ -14,7 +14,7 @@ public interface ProductMapper {
     @Options(useGeneratedKeys = true, keyProperty = "productId")
     void insertProduct(Product product);
 
-    @Select("SELECT * FROM product WHERE product_id = #{productId}")
+    @Select("SELECT product_id AS productId, picture_base64 AS pictureBase64, name, description, price, features, average_rating AS averageRating, created_at AS createdAt FROM product WHERE product_id = #{productId}")
     Product getProductById(Long productId);
 
     @Select("SELECT * FROM product")
