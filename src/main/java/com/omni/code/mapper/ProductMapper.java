@@ -17,7 +17,7 @@ public interface ProductMapper {
     @Select("SELECT product_id AS productId, picture_base64 AS pictureBase64, name, description, price, features, average_rating AS averageRating, created_at AS createdAt FROM product WHERE product_id = #{productId}")
     Product getProductById(Long productId);
 
-    @Select("SELECT * FROM product")
+    @Select("SELECT product_id AS productId, picture_base64 AS pictureBase64, name, description, price, features, average_rating AS averageRating, created_at AS createdAt FROM product")
     List<Product> getAllProducts();
 
     @Update("UPDATE product SET name=#{name}, description=#{description}, price=#{price}, features=#{features}, " +
