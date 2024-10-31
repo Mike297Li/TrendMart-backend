@@ -38,4 +38,8 @@ public class ProductService {
     public void deleteProduct(Long id) {
         productMapper.deleteProduct(id);
     }
+
+    public List<Product> searchProducts(String name, Double rating, Double minPrice, Double maxPrice) {
+        return productMapper.searchProducts(name, rating, minPrice, maxPrice);
+    }
 }

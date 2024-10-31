@@ -26,4 +26,9 @@ public interface ProductMapper {
 
     @Delete("DELETE FROM product WHERE product_id = #{productId}")
     void deleteProduct(Long productId);
+
+    List<Product> searchProducts(@Param("name") String name,
+                                 @Param("rating") Double rating,
+                                 @Param("minPrice") Double minPrice,
+                                 @Param("maxPrice") Double maxPrice);
 }
