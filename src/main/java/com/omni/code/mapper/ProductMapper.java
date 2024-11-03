@@ -30,5 +30,12 @@ public interface ProductMapper {
     List<Product> searchProducts(@Param("name") String name,
                                  @Param("rating") Double rating,
                                  @Param("minPrice") Double minPrice,
-                                 @Param("maxPrice") Double maxPrice);
+                                 @Param("maxPrice") Double maxPrice,
+                                 @Param("offset") int offset,
+                                 @Param("size") int size);
+
+    long getTotalCount(@Param("name")String name,
+                       @Param("rating") Double rating,
+                       @Param("minPrice") Double minPrice,
+                       @Param("maxPrice")Double maxPrice);
 }

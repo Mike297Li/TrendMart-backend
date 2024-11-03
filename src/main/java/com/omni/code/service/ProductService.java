@@ -39,7 +39,11 @@ public class ProductService {
         productMapper.deleteProduct(id);
     }
 
-    public List<Product> searchProducts(String name, Double rating, Double minPrice, Double maxPrice) {
-        return productMapper.searchProducts(name, rating, minPrice, maxPrice);
+    public List<Product> searchProducts(String name, Double rating, Double minPrice, Double maxPrice, int offset, int size) {
+        return productMapper.searchProducts(name, rating, minPrice, maxPrice,offset,size);
+    }
+
+    public long getTotalCount(String name, Double rating, Double minPrice, Double maxPrice) {
+        return productMapper.getTotalCount(name,rating,minPrice,maxPrice);
     }
 }
