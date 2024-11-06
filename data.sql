@@ -78,4 +78,13 @@ ALTER TABLE `product` ADD COLUMN `picture_base64` LONGTEXT;
 
 ALTER TABLE product MODIFY COLUMN product_id integer AUTO_INCREMENT;
 
+ALTER TABLE `order`
+    MODIFY `user_id` VARCHAR(255),  -- Change user_id to varchar
+    MODIFY `order_id` INTEGER AUTO_INCREMENT;  -- Set order_id to AUTO_INCREMENT
 
+-- Modify the 'order_item' table
+ALTER TABLE `order_item`
+    MODIFY `order_item_id` INTEGER AUTO_INCREMENT;  -- Set order_item_id to AUTO_INCREMENT
+
+ALTER TABLE `order`
+ADD COLUMN `address` VARCHAR(255);
