@@ -14,4 +14,5 @@ public class Product {
     private BigDecimal averageRating;
     private LocalDateTime createdAt;
     private String pictureBase64;
+    private int quantity;
 }
