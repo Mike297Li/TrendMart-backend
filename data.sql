@@ -88,3 +88,5 @@ ALTER TABLE `order_item`
 
 ALTER TABLE `order`
 ADD COLUMN `address` VARCHAR(255);
+
+ALTER TABLE payment MODIFY COLUMN payment_id int AUTO_INCREMENT;
