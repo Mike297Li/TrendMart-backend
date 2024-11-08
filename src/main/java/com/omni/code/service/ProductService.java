@@ -5,6 +5,7 @@ import com.omni.code.entity.Product;
 import com.omni.code.mapper.InventoryMapper;
 import com.omni.code.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productMapper.getAllProducts();
     }
-
+    @Cacheable(value = "product", key = "#id")
     public Product getProductById(Long id) {
         return productMapper.getProductById(id);
     }

@@ -5,30 +5,39 @@
 <mapper namespace="com.omni.code.mapper.ProductMapper">
 
     <select id="searchProducts" resultType="Product">
-        SELECT product_id AS productId, picture_base64 AS pictureBase64, name, description, price, features,
-        average_rating AS averageRating, created_at AS createdAt
-        FROM product
+        SELECT p.product_id AS productId,
+        p.picture_base64 AS pictureBase64,
+        p.name,
+        p.description,
+        p.price,
+        p.features,
+        p.average_rating AS averageRating,
+        p.created_at AS createdAt,
+        i.quantity AS quantity
+        FROM product p
+        JOIN inventory i ON p.product_id = i.product_id
         WHERE 1=1
         <if test="name != null">
-            AND name LIKE CONCAT('%', #{name}, '%')
+            AND p.name LIKE CONCAT('%', #{name}, '%')
         </if>
         <if test="rating != null">
-            AND average_rating &gt;= #{rating}
+            AND p.average_rating &gt;= #{rating}
         </if>
         <if test="minPrice != null">
-            AND price  &gt;= #{minPrice}
+            AND p.price &gt;= #{minPrice}
         </if>
         <if test="maxPrice != null">
-            AND price &lt;= #{maxPrice}
+            AND p.price &lt;= #{maxPrice}
         </if>
         LIMIT #{offset}, #{size}
     </select>
 
+
     <select id="getTotalCount" resultType="long">
         SELECT COUNT(*) FROM product
-        WHERE
+        WHERE 1=1
         <if test="name != null">
-            name LIKE CONCAT('%', #{name}, '%')
+           AND name LIKE CONCAT('%', #{name}, '%')
         </if>
         <if test="rating != null">
             AND average_rating &gt;= #{rating}
