@@ -14,7 +14,18 @@ public interface ProductMapper {
     @Options(useGeneratedKeys = true, keyProperty = "productId")
     void insertProduct(Product product);
 
-    @Select("SELECT product_id AS productId, picture_base64 AS pictureBase64, name, description, price, features, average_rating AS averageRating, created_at AS createdAt FROM product WHERE product_id = #{productId}")
+    @Select("SELECT p.product_id AS productId, " +
+            "p.picture_base64 AS pictureBase64, " +
+            "p.name, " +
+            "p.description, " +
+            "p.price, " +
+            "p.features, " +
+            "p.average_rating AS averageRating, " +
+            "p.created_at AS createdAt, " +
+            "i.quantity AS quantity " +
+            "FROM product p " +
+            "JOIN inventory i ON p.product_id = i.product_id " +
+            "WHERE p.product_id = #{productId}")
     Product getProductById(Long productId);
 
     @Select("SELECT product_id AS productId, picture_base64 AS pictureBase64, name, description, price, features, average_rating AS averageRating, created_at AS createdAt FROM product")

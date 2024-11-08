@@ -16,4 +16,12 @@ public interface InventoryMapper {
     void insertInventory(@Param("productId") long productId,
                          @Param("quantity") int quantity);
 
+    // New method to update the quantity of an existing inventory item
+    @Update("UPDATE inventory SET quantity = #{quantity}, updated_at = Now() WHERE product_id = #{productId}")
+    void updateInventory(@Param("productId") long productId, @Param("quantity") int quantity);
+
+    // New method to delete an inventory item by product_id
+    @Delete("DELETE FROM inventory WHERE product_id = #{productId}")
+    void deleteInventory(Long productId);
+
 }
