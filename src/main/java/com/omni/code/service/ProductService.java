@@ -41,14 +41,19 @@ public class ProductService {
         if (existingProduct != null) {
             updatedProduct.setProductId(id);
             productMapper.updateProduct(updatedProduct);
-            inventoryMapper.updateInventory(id,updatedProduct.getQuantity());
+            Integer num = inventoryMapper.checkStock(id);
+            if(num!=null){
+                inventoryMapper.updateInventory(id,updatedProduct.getQuantity());
+            }else {
+                inventoryMapper.insertInventory(id,updatedProduct.getQuantity());
+            }
         }
     }
 
     @Transactional
     public void deleteProduct(Long id) {
-        productMapper.deleteProduct(id);
         inventoryMapper.deleteInventory(id);
+        productMapper.deleteProduct(id);
     }
 
     public List<Product> searchProducts(String name, Double rating, Double minPrice, Double maxPrice, int offset, int size) {
