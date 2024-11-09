@@ -24,7 +24,7 @@ public interface ProductMapper {
             "p.created_at AS createdAt, " +
             "i.quantity AS quantity " +
             "FROM product p " +
-            "JOIN inventory i ON p.product_id = i.product_id " +
+            "LEFT JOIN inventory i ON p.product_id = i.product_id " +
             "WHERE p.product_id = #{productId}")
     Product getProductById(Long productId);
 
