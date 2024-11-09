@@ -28,7 +28,17 @@ public interface ProductMapper {
             "WHERE p.product_id = #{productId}")
     Product getProductById(Long productId);
 
-    @Select("SELECT product_id AS productId, picture_base64 AS pictureBase64, name, description, price, features, average_rating AS averageRating, created_at AS createdAt FROM product")
+    @Select("SELECT p.product_id AS productId, " +
+            "p.picture_base64 AS pictureBase64, " +
+            "p.name, " +
+            "p.description, " +
+            "p.price, " +
+            "p.features, " +
+            "p.average_rating AS averageRating, " +
+            "p.created_at AS createdAt, " +
+            "i.quantity AS quantity " +
+            "FROM product p " +
+            "LEFT JOIN inventory i ON p.product_id = i.product_id")
     List<Product> getAllProducts();
 
     @Update("UPDATE product SET name=#{name}, description=#{description}, price=#{price}, features=#{features}, " +
