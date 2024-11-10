@@ -26,7 +26,7 @@ public class CheckoutService {
     private InventoryMapper inventoryMapper;
 
     @Transactional
-    public void checkout(String userId, List<OrderItem> items, String address) {
+    public Long checkout(String userId, List<OrderItem> items, String address) {
         // Create an order
         Order order = new Order();
         order.setUserId(userId);
@@ -56,6 +56,7 @@ public class CheckoutService {
             item.setOrderId(orderId);
             orderItemMapper.insertOrderItem(item);
         }
+        return orderId;
     }
 
     private BigDecimal calculateTotalAmount(List<OrderItem> items) {

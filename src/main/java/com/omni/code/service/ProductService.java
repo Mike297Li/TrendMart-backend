@@ -24,7 +24,6 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productMapper.getAllProducts();
     }
-    @Cacheable(value = "product", key = "#id")
     public Product getProductById(Long id) {
         return productMapper.getProductById(id);
     }

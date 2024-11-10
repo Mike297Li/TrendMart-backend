@@ -2,7 +2,9 @@ package com.omni.code.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omni.code.entity.Order;
 import com.omni.code.request.PaymentRequest;
+import com.omni.code.service.OrderService;
 import com.omni.code.service.PaymentService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
@@ -25,11 +27,16 @@ public class PaymentController {
     @Autowired
     private  PaymentService paymentService;
 
+    @Autowired
+    private OrderService orderService;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @PostMapping("/create")
     public ResponseEntity<Map<String, String>> createPayment(@Valid @RequestBody PaymentRequest request) {
         Map<String, String> response = new HashMap<>();
+        Order order=new Order();
+        order.setOrderId(Long.valueOf(request.getOrderId()));
         try {
             // Convert amount to cents
             BigDecimal amountInCents = request.getAmount().multiply(new BigDecimal(100));
@@ -41,8 +48,8 @@ public class PaymentController {
             if ("requires_confirmation".equals(paymentIntent.getStatus())) {
                 // Confirm the PaymentIntent if it requires confirmation
                 PaymentIntent confirmedPaymentIntent = paymentIntent.confirm();
-
                 if ("succeeded".equals(confirmedPaymentIntent.getStatus())) {
+                    orderService.updateOrderStatus(order);
                     response.put("status", "success");
                     response.put("message", "Payment confirmed and successful");
                 } else {
@@ -50,6 +57,7 @@ public class PaymentController {
                     response.put("message", "Payment confirmation status: " + confirmedPaymentIntent.getStatus());
                 }
             } else if ("succeeded".equals(paymentIntent.getStatus())) {
+                orderService.updateOrderStatus(order);
                 response.put("status", "success");
                 response.put("message", "Payment successful");
             } else if ("requires_action".equals(paymentIntent.getStatus())) {
