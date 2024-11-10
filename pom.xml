@@ -95,6 +95,26 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
+		<!-- Jakarta Bean Validation API -->
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>2.0.2</version> <!-- Latest version for Jakarta Validation API -->
+		</dependency>
+
+		<!-- Hibernate Validator (the reference implementation for Bean Validation) -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.1.7.Final</version> <!-- Use the appropriate version -->
+		</dependency>
+
+		<!-- Optional: For validation annotations to work in Spring Boot, you may need the following as well -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
