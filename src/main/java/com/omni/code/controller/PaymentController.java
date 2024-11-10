@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 
 import java.util.HashMap;
@@ -27,7 +28,7 @@ public class PaymentController {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @PostMapping("/create")
-    public ResponseEntity<Map<String, String>> createPayment(@RequestBody PaymentRequest request) {
+    public ResponseEntity<Map<String, String>> createPayment(@Valid @RequestBody PaymentRequest request) {
         Map<String, String> response = new HashMap<>();
         try {
             // Convert amount to cents
