@@ -1,10 +1,9 @@
 package com.omni.code.mapper;
 
 import com.omni.code.entity.Order;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface OrderMapper {
@@ -17,5 +16,22 @@ public interface OrderMapper {
     @Update("UPDATE `order` SET order_status = #{orderStatus}, payment_status = #{paymentStatus}, updated_at = NOW() " +
             "WHERE order_id = #{orderId}")
     void updateOrderStatus(Order order);
+
+
+    long getTotalCount(
+                @Param("startDate") String startDate,
+                @Param("endDate") String endDate,
+                @Param("status") String status,
+                @Param("userId") String userId
+        );
+
+    List<Order> searchOrders(
+            @Param("startDate") String startDate,
+            @Param("endDate") String endDate,
+            @Param("status") String status,
+            @Param("userId") String userId,
+            @Param("offset") int offset,
+            @Param("size") int size
+    );
 
 }

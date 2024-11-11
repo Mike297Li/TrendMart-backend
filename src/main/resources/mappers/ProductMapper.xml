@@ -15,7 +15,7 @@
         p.created_at AS createdAt,
         i.quantity AS quantity
         FROM product p
-        JOIN inventory i ON p.product_id = i.product_id
+        left JOIN inventory i ON p.product_id = i.product_id
         WHERE 1=1
         <if test="name != null">
             AND p.name LIKE CONCAT('%', #{name}, '%')

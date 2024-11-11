@@ -69,4 +69,7 @@ public class UserService {
         }
     }
 
+    public boolean isUserAdmin(String userId) {
+        return userMapper.isUserAdmin(userId);
+    }
 }
