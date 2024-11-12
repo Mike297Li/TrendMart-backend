@@ -25,7 +25,7 @@ public class OrderController {
     public OrderResultsResponse searchOrders(
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate,
-            @RequestParam(required = false) String status,
+            @RequestParam(required = false) List<String> status,  // Accept multiple status values as a list
             @RequestParam String userId,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {

@@ -21,14 +21,14 @@ public interface OrderMapper {
     long getTotalCount(
                 @Param("startDate") String startDate,
                 @Param("endDate") String endDate,
-                @Param("status") String status,
+                @Param("status") List<String> status,
                 @Param("userId") String userId
         );
 
     List<Order> searchOrders(
             @Param("startDate") String startDate,
             @Param("endDate") String endDate,
-            @Param("status") String status,
+            @Param("status") List<String> status,
             @Param("userId") String userId,
             @Param("offset") int offset,
             @Param("size") int size

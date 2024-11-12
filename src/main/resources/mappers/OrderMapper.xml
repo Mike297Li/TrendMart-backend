@@ -12,8 +12,11 @@
             <if test="userId != null">
                 AND `user_id` = #{userId}
             </if>
-            <if test="status != null">
-                AND `order_status` = #{status}
+            <if test="status != null and status.size() > 0">
+                AND `order_status` IN
+                <foreach collection="status" item="statusItem" open="(" close=")" separator=",">
+                    #{statusItem}
+                </foreach>
             </if>
             <if test="startDate != null">
                 AND `created_at` &gt;= #{startDate}
@@ -38,8 +41,11 @@
         <if test="userId != null">
             AND `user_id` = #{userId}
         </if>
-        <if test="status != null">
-            AND `order_status` = #{status}
+        <if test="status != null and status.size() > 0">
+            AND `order_status` IN
+            <foreach collection="status" item="statusItem" open="(" close=")" separator=",">
+                #{statusItem}
+            </foreach>
         </if>
         <if test="startDate != null">
             AND `created_at` &gt;= #{startDate}
