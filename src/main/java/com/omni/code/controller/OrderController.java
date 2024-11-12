@@ -1,6 +1,7 @@
 package com.omni.code.controller;
 
 import com.omni.code.entity.Order;
+import com.omni.code.entity.OrderItem;
 import com.omni.code.response.OrderResultsResponse;
 import com.omni.code.service.OrderService;
 import com.omni.code.service.UserService;
@@ -56,6 +57,12 @@ public class OrderController {
         }
 
         return new OrderResultsResponse(orders, totalCount);
+    }
+
+    // Endpoint to get order items by order_id
+    @GetMapping("/order/{orderId}")
+    public List<OrderItem> getOrderItemsByOrderId(@PathVariable Integer orderId) {
+        return orderService.getOrderItemsByOrderId(orderId);
     }
 
 }
