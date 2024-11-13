@@ -25,7 +25,7 @@ public class ReviewController {
                              @RequestParam Integer rating,
                              @RequestParam String reviewText) {
         reviewService.submitReview(productId, userId, rating, reviewText);
-        // update Redis
+        // update Redis in asynchronous
         productService.updateTopFiveProductsInRedis();
     }
 
