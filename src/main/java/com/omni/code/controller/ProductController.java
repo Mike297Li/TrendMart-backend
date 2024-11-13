@@ -71,6 +71,16 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/homepage")
+    public List<Product> getTopRatedProducts() {
+        // Get the top 5 highest rated products from Redis
+        return productService.getTopFiveHighestRatedProducts();
+    }
+
+    @GetMapping("/updateRedis")
+    public void updateRedis(){
+        productService.updateTopFiveProductsInRedis();
+    }
 
 
 }

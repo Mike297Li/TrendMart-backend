@@ -4,7 +4,7 @@
 
 <mapper namespace="com.omni.code.mapper.ProductMapper">
 
-    <select id="searchProducts" resultType="Product">
+    <select id="searchProducts" resultType="com.omni.code.entity.Product">
         SELECT p.product_id AS productId,
         p.picture_base64 AS pictureBase64,
         p.name,
@@ -48,6 +48,23 @@
         <if test="maxPrice != null">
             AND price &lt;= #{maxPrice}
         </if>
+    </select>
+
+
+    <select id="getTopFiveHighestRatedProducts" resultType="com.omni.code.entity.Product">
+        SELECT p.product_id AS productId,
+        p.picture_base64 AS pictureBase64,
+        p.name,
+        p.description,
+        p.price,
+        p.features,
+        AVG(r.rating) AS averageRating,
+        p.created_at AS createdAt
+        FROM product p
+        JOIN reviews r ON p.product_id = r.product_id
+        GROUP BY p.product_id
+        ORDER BY average_rating DESC
+        LIMIT 5
     </select>
 
 </mapper>

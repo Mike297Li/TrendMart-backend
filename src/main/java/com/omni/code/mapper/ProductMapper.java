@@ -59,4 +59,7 @@ public interface ProductMapper {
                        @Param("rating") Double rating,
                        @Param("minPrice") Double minPrice,
                        @Param("maxPrice")Double maxPrice);
+
+    List<Product> getTopFiveHighestRatedProducts();
+
 }
