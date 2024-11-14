@@ -37,7 +37,6 @@ public class ProductService {
     }
 
 
-    @Cacheable(value = "product", key = "#id")
     public Product getProductById(Long id) {
         return productMapper.getProductById(id);
     }
