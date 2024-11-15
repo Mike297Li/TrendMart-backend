@@ -12,8 +12,8 @@ public class ReviewService {
     private ReviewMapper reviewMapper;
 
     // Submit a review for a product
-    public void submitReview(Integer productId, String userId, Integer rating, String reviewText) {
-        reviewMapper.submitReview(productId, userId, rating, reviewText);
+    public void submitReview(Integer productId, String userId, Integer rating, String reviewText, String userName) {
+        reviewMapper.submitReview(productId, userId, rating, reviewText,userName);
     }
 
     // Get all reviews for a product

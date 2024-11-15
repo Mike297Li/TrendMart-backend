@@ -99,3 +99,6 @@ MODIFY COLUMN user_id VARCHAR(255);
 
 ALTER TABLE `reviews`
     MODIFY `review_id` INTEGER AUTO_INCREMENT;  -- Set review_id to AUTO_INCREMENT
+
+ALTER TABLE reviews
+ADD COLUMN user_name VARCHAR(255);

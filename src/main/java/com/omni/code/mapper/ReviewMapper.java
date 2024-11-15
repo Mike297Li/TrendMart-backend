@@ -10,16 +10,17 @@ import java.util.List;
 @Mapper
 public interface ReviewMapper {
     // SQL query to insert a review into the 'reviews' table
-    @Insert("INSERT INTO reviews (product_id, user_id, rating, review_text, created_at) " +
-            "VALUES (#{productId}, #{userId}, #{rating}, #{reviewText}, NOW())")
+    @Insert("INSERT INTO reviews (product_id, user_id, rating, review_text,user_name, created_at) " +
+            "VALUES (#{productId}, #{userId}, #{rating}, #{reviewText}, #{userName}, NOW())")
     void submitReview(@Param("productId") Integer productId,
                       @Param("userId") String userId,
                       @Param("rating") Integer rating,
-                      @Param("reviewText") String reviewText);
+                      @Param("reviewText") String reviewText,
+                      @Param("userName") String userName);
 
     // SQL query to fetch reviews by product_id
     @Select("SELECT review_id AS reviewId, product_id AS productId, user_id AS userId, " +
-            "rating, review_text AS reviewText, created_at AS createdAt " +
+            "rating, review_text AS reviewText,user_name As userName, created_at AS createdAt " +
             "FROM reviews WHERE product_id = #{productId}")
     List<Review> getReviewsByProductId(@Param("productId") Integer productId);
 }
