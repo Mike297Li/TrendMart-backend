@@ -9,7 +9,7 @@ public class Review {
 
     private Integer reviewId;
     private Integer productId;
-    private Integer userId;
+    private String userId;
     private Integer rating;  // Rating out of 5
     private String reviewText;
     private Timestamp createdAt;
