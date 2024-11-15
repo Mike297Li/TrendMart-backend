@@ -13,7 +13,9 @@ public interface OrderItemMapper {
     void insertOrderItem(OrderItem orderItem);
 
 
-    @Select("SELECT order_item_id AS orderItemId, order_id AS orderId, product_id AS productId, quantity, price " +
-            "FROM order_item WHERE order_id = #{orderId}")
+    @Select("SELECT oi.order_item_id AS orderItemId, oi.order_id AS orderId, oi.product_id AS productId, oi.quantity, oi.price, p.name AS name " +
+            "FROM order_item oi " +
+            "LEFT JOIN product p ON oi.product_id = p.product_id " +
+            "WHERE oi.order_id = #{orderId}")
     List<OrderItem> getOrderItemsByOrderId(Integer orderId);
 }

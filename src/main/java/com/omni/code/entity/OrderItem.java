@@ -11,4 +11,5 @@ public class OrderItem {
     private Long productId; // ID of the product
     private int quantity;
     private BigDecimal price; // Store price at the time of order
+    private String name;
 }
