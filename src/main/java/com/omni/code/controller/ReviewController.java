@@ -35,4 +35,13 @@ public class ReviewController {
     public List<Review> getReviewsByProductId(@PathVariable Integer productId) {
         return reviewService.getReviewsByProductId(productId);
     }
+
+    @PutMapping("/update")
+    public void updateReview(@RequestParam Integer reviewId,
+                             @RequestParam Integer rating,
+                             @RequestParam String reviewText) {
+        reviewService.updateReview(reviewId, rating, reviewText);
+        // update Redis asynchronously
+        productService.updateTopFiveProductsInRedis();
+    }
 }
