@@ -53,18 +53,21 @@
 
     <select id="getTopFiveHighestRatedProducts" resultType="com.omni.code.entity.Product">
         SELECT p.product_id AS productId,
-        p.picture_base64 AS pictureBase64,
-        p.name,
-        p.description,
-        p.price,
-        p.features,
-        AVG(r.rating) AS averageRating,
-        p.created_at AS createdAt
+               p.picture_base64 AS pictureBase64,
+               p.name,
+               p.description,
+               p.price,
+               p.features,
+               AVG(r.rating) AS averageRating,
+               p.created_at AS createdAt,
+               i.quantity AS quantity
         FROM product p
-        JOIN reviews r ON p.product_id = r.product_id
-        GROUP BY p.product_id
-        ORDER BY average_rating DESC
-        LIMIT 5
+                 JOIN reviews r ON p.product_id = r.product_id
+                 LEFT JOIN inventory i ON p.product_id = i.product_id
+        WHERE i.quantity > 0
+        GROUP BY p.product_id, i.quantity
+        ORDER BY averageRating DESC
+            LIMIT 5
     </select>
 
 </mapper>
