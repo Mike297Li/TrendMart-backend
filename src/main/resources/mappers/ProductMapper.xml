@@ -64,6 +64,7 @@
         FROM product p
                  JOIN reviews r ON p.product_id = r.product_id
                  LEFT JOIN inventory i ON p.product_id = i.product_id
+        WHERE i.quantity > 0
         GROUP BY p.product_id, i.quantity
         ORDER BY averageRating DESC
             LIMIT 5
