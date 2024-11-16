@@ -41,4 +41,23 @@ public class ReviewService {
             throw new RuntimeException("Failed to update review with ID: " + reviewId);
         }
     }
+
+    public void deleteReview(Integer reviewId) {
+        // Validate input
+        if (reviewId == null) {
+            throw new IllegalArgumentException("Review ID cannot be null.");
+        }
+
+        // Check if the review exists
+        Review existingReview = reviewMapper.findById(reviewId);
+        if (existingReview == null) {
+            throw new NoSuchElementException("Review not found with ID: " + reviewId);
+        }
+
+        // Delete the review
+        int rowsAffected = reviewMapper.deleteReview(reviewId);
+        if (rowsAffected == 0) {
+            throw new RuntimeException("Failed to delete review with ID: " + reviewId);
+        }
+    }
 }

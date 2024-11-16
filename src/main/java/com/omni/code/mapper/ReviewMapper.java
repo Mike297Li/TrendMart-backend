@@ -31,4 +31,7 @@ public interface ReviewMapper {
             "FROM reviews WHERE review_id = #{reviewId}")
     Review findById(@Param("reviewId") Integer reviewId);
 
+    @Delete("DELETE FROM reviews WHERE review_id = #{reviewId}")
+    int deleteReview(@Param("reviewId") Integer reviewId);
+
 }

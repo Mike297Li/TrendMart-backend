@@ -44,4 +44,11 @@ public class ReviewController {
         // update Redis asynchronously
         productService.updateTopFiveProductsInRedis();
     }
+
+    @DeleteMapping("/delete")
+    public void deleteReview(@RequestParam Integer reviewId) {
+        reviewService.deleteReview(reviewId);
+        // Update Redis asynchronously
+        productService.updateTopFiveProductsInRedis();
+    }
 }
