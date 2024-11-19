@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.omni.code.mapper.OrderMapper">
+
+
+        <!-- Count Orders with Filters -->
+        <select id="getTotalCount" resultType="long">
+            SELECT COUNT(*) FROM `order`
+            WHERE 1=1
+            <if test="userId != null">
+                AND `user_id` = #{userId}
+            </if>
+            <if test="status != null and status.size() > 0">
+                AND `order_status` IN
+                <foreach collection="status" item="statusItem" open="(" close=")" separator=",">
+                    #{statusItem}
+                </foreach>
+            </if>
+            <if test="startDate != null">
+                AND `created_at` &gt;= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND `created_at` &lt;= #{endDate}
+            </if>
+        </select>
+
+    <!-- Retrieve Orders with Filters and Pagination -->
+    <select id="searchOrders" resultType="com.omni.code.entity.Order">
+        SELECT
+        `order_id` AS orderId,
+        `user_id` AS userId,
+        `total_amount` AS totalAmount,
+        `order_status` AS orderStatus,
+        `payment_status` AS paymentStatus,
+        `created_at` AS createdAt,
+        `address`
+        FROM `order`
+        WHERE 1=1
+        <if test="userId != null">
+            AND `user_id` = #{userId}
+        </if>
+        <if test="status != null and status.size() > 0">
+            AND `order_status` IN
+            <foreach collection="status" item="statusItem" open="(" close=")" separator=",">
+                #{statusItem}
+            </foreach>
+        </if>
+        <if test="startDate != null">
+            AND `created_at` &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND `created_at` &lt;= #{endDate}
+        </if>
+        ORDER BY `created_at` DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+
+
+</mapper>

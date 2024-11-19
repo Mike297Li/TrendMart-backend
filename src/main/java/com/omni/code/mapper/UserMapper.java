@@ -48,4 +48,8 @@ public interface UserMapper {
     // Update user password
     @Update("UPDATE users SET password = #{password} WHERE email = #{email}")
     void updatePassword(@Param("email") String email, @Param("password") String password);
+
+    @Select("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM users WHERE user_id = #{userId} AND role = 'admin'")
+    boolean isUserAdmin(@Param("userId") String userId);
+
 }

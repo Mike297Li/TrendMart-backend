@@ -58,8 +58,6 @@ CREATE TABLE `reviews` (
   `created_at` timestamp
 );
 
-ALTER TABLE `payment_information` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
-
 ALTER TABLE `reviews` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 ALTER TABLE `reviews` ADD FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
@@ -78,4 +76,30 @@ ALTER TABLE `product` ADD COLUMN `picture_base64` LONGTEXT;
 
 ALTER TABLE product MODIFY COLUMN product_id integer AUTO_INCREMENT;
 
+ALTER TABLE `order`
+    MODIFY `user_id` VARCHAR(255),  -- Change user_id to varchar
+    MODIFY `order_id` INTEGER AUTO_INCREMENT;  -- Set order_id to AUTO_INCREMENT
 
+-- Modify the 'order_item' table
+ALTER TABLE `order_item`
+    MODIFY `order_item_id` INTEGER AUTO_INCREMENT;  -- Set order_item_id to AUTO_INCREMENT
+
+ALTER TABLE `order`
+ADD COLUMN `address` VARCHAR(255);
+
+ALTER TABLE payment MODIFY COLUMN payment_id int AUTO_INCREMENT;
+
+ALTER TABLE `order`
+ADD COLUMN `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+ALTER TABLE reviews
+MODIFY COLUMN user_id VARCHAR(255);
+
+ALTER TABLE `reviews`
+    MODIFY `review_id` INTEGER AUTO_INCREMENT;  -- Set review_id to AUTO_INCREMENT
+
+ALTER TABLE reviews
+ADD COLUMN user_name VARCHAR(255);
+
+ALTER TABLE `reviews`
+ADD COLUMN `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;

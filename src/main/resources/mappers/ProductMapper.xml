@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.omni.code.mapper.ProductMapper">
+
+    <select id="searchProducts" resultType="com.omni.code.entity.Product">
+        SELECT p.product_id AS productId,
+        p.picture_base64 AS pictureBase64,
+        p.name,
+        p.description,
+        p.price,
+        p.features,
+        p.average_rating AS averageRating,
+        p.created_at AS createdAt,
+        i.quantity AS quantity
+        FROM product p
+        left JOIN inventory i ON p.product_id = i.product_id
+        WHERE 1=1
+        <if test="name != null">
+            AND p.name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="rating != null">
+            AND p.average_rating &gt;= #{rating}
+        </if>
+        <if test="minPrice != null">
+            AND p.price &gt;= #{minPrice}
+        </if>
+        <if test="maxPrice != null">
+            AND p.price &lt;= #{maxPrice}
+        </if>
+        LIMIT #{offset}, #{size}
+    </select>
+
+
+    <select id="getTotalCount" resultType="long">
+        SELECT COUNT(*) FROM product
+        WHERE 1=1
+        <if test="name != null">
+           AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="rating != null">
+            AND average_rating &gt;= #{rating}
+        </if>
+        <if test="minPrice != null">
+            AND price  &gt;= #{minPrice}
+        </if>
+        <if test="maxPrice != null">
+            AND price &lt;= #{maxPrice}
+        </if>
+    </select>
+
+
+    <select id="getTopFiveHighestRatedProducts" resultType="com.omni.code.entity.Product">
+        SELECT p.product_id AS productId,
+               p.picture_base64 AS pictureBase64,
+               p.name,
+               p.description,
+               p.price,
+               p.features,
+               AVG(r.rating) AS averageRating,
+               p.created_at AS createdAt,
+               i.quantity AS quantity
+        FROM product p
+                 JOIN reviews r ON p.product_id = r.product_id
+                 LEFT JOIN inventory i ON p.product_id = i.product_id
+        WHERE i.quantity > 0
+        GROUP BY p.product_id, i.quantity
+        ORDER BY averageRating DESC
+            LIMIT 5
+    </select>
+
+</mapper>
