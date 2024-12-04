@@ -46,6 +46,11 @@ public class UserService {
     }
 
     public User loginUser(String email, String password) {
+        if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
+            // Log and return null for invalid inputs
+            System.out.println("Invalid login attempt: email or password is null/empty.");
+            return null;
+        }
         User user = userMapper.findUserByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             return user;
