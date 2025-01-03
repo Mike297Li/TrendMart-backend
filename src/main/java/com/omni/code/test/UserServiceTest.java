@@ -116,6 +116,29 @@ class UserServiceTest {
         // Assert
         assertNull(loggedInUser, "Login should fail when email is null.");
         verify(userMapper, never()).findUserByEmail(anyString()); // Ensure mapper is not called
+
+        StringBuffer stringBuffer=new StringBuffer();
+        String reverse = stringBuffer.reverse().toString();
+        reverse.replace(" ","");
+
+    }
+
+    public static boolean isPalindrome(String s) {
+        String original=s.replaceAll("[^a-zA-Z0-9]", "");
+        for(int i=0;i<original.length();i++){
+            if(Character.toLowerCase(original.charAt(i)) - Character.toLowerCase(original.charAt(original.length()-1-i))!=0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+         String s="Was it a car or a cat I saw?";
+
+        System.out.println(isPalindrome(s));
+
+
     }
 
 }

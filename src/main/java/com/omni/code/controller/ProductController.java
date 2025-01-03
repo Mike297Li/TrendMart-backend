@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://209.126.0.170" })
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
