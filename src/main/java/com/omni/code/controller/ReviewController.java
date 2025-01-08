@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://209.126.0.170" })
 @RestController
 @RequestMapping("/api/review")
 public class ReviewController {

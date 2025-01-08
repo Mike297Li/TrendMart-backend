@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 
 import java.util.HashMap;
 import java.util.Map;
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://209.126.0.170" })
 @RestController
 @RequestMapping("/api/payments")
 @Slf4j
